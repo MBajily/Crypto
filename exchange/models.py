@@ -18,6 +18,7 @@ class BuySellHistory(models.Model):
     profit = models.FloatField()
     coin = models.ForeignKey(Coin, null=True, on_delete=models.SET_NULL)
     type = models.TextField(choices=types)
+    trader = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
 
 class FavoriteCoin(models.Model):
