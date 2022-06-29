@@ -24,7 +24,17 @@ def CoinDetails(request, symbol):
 @login_required()
 def Portfolio(request):
     trader = request.user
-    wallet = Wallet.objects.filter(trader=trader).all()
+    portfolio = Portfolio.objects.filter(trader=trader).all()
     history = BuySellHistory.objects.filter(trader=trader).all()
-    context = {'title':''}
+    
+    context = {'title':'', 'portfolio':portfolio, 'history':history}
     return render(request, 'portfolio.html', context)
+
+
+@login_required()
+def Transactions(request):
+    trader = request.user
+    transactions = Transaction.objects.filter(trader=trader).order_by('-date')
+
+    context = {'title':'', 'transactions':transactions}
+    return render(request, 'transaction', context)
